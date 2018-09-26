@@ -29,35 +29,36 @@ node* delete_node(node* root, int data, comparer compare)
 	  
 	        if (r < 0)
 	        {
-	            is_left = 1;
 	            cursor = cursor->left;
 	        }
 	        
 	        else if (r > 0)
 	        {
-	            is_left = 0;
 	            cursor = cursor->right;
 	        }
 
 	        else
 	        {
-	            is_left = -1;
-	            if(cursor->rep == 1)
-	                free(cursor);
-	            
-	            else     
-	                cursor->rep--;
-	            return root;
+	            is_left = 1;
+	            break;
 	        }
     	}
 
         if (is_left)
-	        free(prev->left);
-
-        else if (is_left == 0)
-            free(prev->right);
+        {
+            if(prev->rep == 1)
+            {
+                free(prev);
+            }
+            
+            else
+            {
+                prev->rep--;
+            }
+        }
+	      
     }
-    
+    return root;
 }
 
 
@@ -82,7 +83,6 @@ void display_tree (node * nd)
 {
     if (nd == NULL)
         return;
-
 
     /* display node data */
     printf ("%2d ", nd->data);
