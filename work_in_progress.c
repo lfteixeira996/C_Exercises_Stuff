@@ -14,77 +14,111 @@ struct tnode {
 	struct tnode *right;	/*right child*/
 };
 
-char buf[BUFSIZE];
-int bufp = 0;
 
-
-//Functions
-int getch(void)      /* get a (possibly pushed-back) character */
-{
-	return (bufp > 0 ) ? buf[--bufp] : getchar();
-}
-
-void ungetch(int c)
-{
-	if (bufp >= BUFSIZE)
-		printf("ungetch: too many characters\n");
-	else
-		buf[bufp++] = c;
-}
-
-
-/* getword: get next word or character from input */
-int getword(char *word, int lim)
-{
-    int c, getch(void);
-    void ungetch(int);
-    char *w = word;
-    
-    while(isspace(c = getch()));
-
-    if(c != EOF)
-    {
-        *w++ = c;
-    }
-    
-    if(!isalpha(c))
-    {
-        *w = '\0';
-        return c;
-    }
-    
-    for( ; --lim > 0; w++)
-    {
-        if(!isalnum(*w = getch()))
-        {
-            ungetch(*w);
-            break;
-        }
-    }
-    
-    *w = '\0';
-    
-    return word[0];
-}
-
-
+struct tnode *addtree(struct tnode *p, char *w);
+void treeprint(struct tnode *);
+struct tnode *talloc(void);
+char *strdup(char*);
 
 
 int main()
 {
-    char word[MAXSIZE] = "now is the time for all good men to come to the aid of their party";
+    int i;
+    char word[MAXSIZE];
     struct tnode *root;
     
     root = NULL;
+    word[0]  = "now";
+    /*word[1]  = "is";
+    word[2]  = "the";
+    word[3]  = "time";
+    word[4]  = "for";
+    word[5]  = "all";
+    word[6]  = "good";
+    word[7]  = "men";
+    word[8]  = "to";
+    word[9]  = "come";
+    word[10] = "to";
+    word[11] = "the";
+    word[12] = "aid";
+    word[13] = "of";
+    word[14] = "their";
+    word[15] = "party";*/
     
-    while(getword(word, MAXSIZE) != EOF)
-    {    
-        printf("....\n");
-        if(isalpha(word[0]))
-        {
-            printf("....\n");
-        }
+
+    root = addtree(root, word);
+
+    printf("%4d %s\n", root->count, root->word);
+
+    //treeprint(root);
     
-    }    
     return 0;
 }
+
+
+/*strdup*/
+char *strdup(char *s)
+{
+    char *p;
+    
+    p = (char *) malloc(strlen(s)+1);
+    
+    if(p != NULL)
+        strcpy(p, s);
+    
+    return p;    
+}
+
+
+/*talloc*/
+struct tnode *talloc(void)
+{
+    return (struct tnode*) malloc(sizeof(struct tnode));
+}
+
+
+/*treeprint*/
+void treeprint(struct tnode *p)
+{
+    if(NULL != p)
+    {
+        treeprint(p->left);
+        printf("%4d %s\n", p->count, p->word);
+        treeprint(p->right);
+    }
+}
+
+/*addtree*/
+struct tnode *addtree(struct tnode *p, char *w)
+{
+    int cond;
+    
+    if(NULL == p)
+    {
+        p = talloc();
+        p->word = strdup(w);
+        p->count = 1;
+        p->left = p->right = NULL;
+    }
+       
+    return p;
+    
+    /*else if((cond = strcmp(w, p->word)) == 0)
+    {
+        p->count++;
+    }
+    
+    else if(cond < 0)
+    {
+        p->left = addtree( p->left , w);
+    }
+    
+    else
+    {
+         p->right = addtree( p->right , w);
+    }
+    
+    return p;*/
+}
+
+
