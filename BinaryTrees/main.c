@@ -5,7 +5,7 @@
 int main()
 {
     int i;
-    int array[5] = {1, 3, 0, 4, 2};
+    int array[5] = {1, 3, 4, 4, 4};
     tnode *root = NULL;
     
     for (i=0; i<sizeof(array)/sizeof(int); i++) {
