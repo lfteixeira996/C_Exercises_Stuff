@@ -10,8 +10,12 @@ typedef struct node
 }tnode;
 
 
-void print_option(tnode* root);
 tnode *free_option(tnode* root);
+void print_option(tnode* root);
+tnode *delete_node_option(tnode* root, int val);
+
+
+
 
 
 tnode* CreateNode(int val);  
