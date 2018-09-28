@@ -10,6 +10,7 @@ tnode *CreateNode(int val)
     tnode *new_Node = (tnode*)malloc(sizeof(tnode)); 
     
     new_Node->data = val;
+    new_Node->rep  = 1;
     new_Node->left = new_Node->right = NULL;
     
     return new_Node;
@@ -22,6 +23,7 @@ tnode *CreateTree(tnode* root, int val)
     /*
         side = 0 - right node
         side = 1 - left node
+        side = -1 - rep++
     */
     int side;
     
@@ -48,10 +50,16 @@ tnode *CreateTree(tnode* root, int val)
                 side = 0;
             }
             
-            else
+            else if(val < new_node->data)
             {
                 new_node = new_node->left;
                 side = 1; 
+            }
+            
+            else
+            {
+                side = -1;
+                break;
             }
            
         }
@@ -60,7 +68,10 @@ tnode *CreateTree(tnode* root, int val)
             prev_node->right = CreateNode(val);
         
         else if(side == 1)
-            prev_node->left = CreateNode(val);    
+            prev_node->left = CreateNode(val);   
+            
+        else
+            prev_node->rep++;     
     }
     
     return root;
@@ -73,7 +84,7 @@ void PrintTree(tnode* root)
    if(root == NULL)
     return;
     
-   printf("%2d ", root->data);
+   printf("%2d %2d ", root->data, root->rep);
    
    if(root->left != NULL)
    {
