@@ -23,11 +23,11 @@ tnode *CreateTree(tnode* root, int val)
         side = 0 - right node
         side = 1 - left node
     */
+    int side;
     
     tnode * new_node = root;
     tnode * prev_node = root;
     
-    int side;
     
     /*First Node*/
     if(root == NULL)
@@ -44,13 +44,13 @@ tnode *CreateTree(tnode* root, int val)
             
             if(val > new_node->data)
             {
-                new_node = prev_node->right;
+                new_node = new_node->right;
                 side = 0;
             }
             
             else
             {
-                new_node = prev_node->left;
+                new_node = new_node->left;
                 side = 1; 
             }
            
@@ -68,9 +68,12 @@ tnode *CreateTree(tnode* root, int val)
 
 
 /*Print the tree*/
-void *PrintTree(tnode* root)
+void PrintTree(tnode* root)
 {
-   printf("%d", root->data);
+   if(root == NULL)
+    return;
+    
+   printf("%2d ", root->data);
    
    if(root->left != NULL)
    {
@@ -82,6 +85,7 @@ void *PrintTree(tnode* root)
        printf("(R:%d)", root->right->data);
    }
     
+    printf("\n");
     PrintTree(root->left);
     PrintTree(root->right);
     
