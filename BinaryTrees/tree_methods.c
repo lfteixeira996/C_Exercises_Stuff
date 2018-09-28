@@ -1,12 +1,7 @@
+#include <stdio.h>
+#include "tree_methods.h"
 
 
-typedef struct node
-{
-    int data;
-    int rep;
-    struct node *left;
-    struct node *right;
-}tnode;
 
 
 /*Create a new Node*/
@@ -69,4 +64,25 @@ tnode *CreateTree(tnode* root, int val)
     }
     
     return root;
+}
+
+
+/*Print the tree*/
+void *PrintTree(tnode* root)
+{
+   printf("%d", root->data);
+   
+   if(root->left != NULL)
+   {
+       printf("(L:%d)", root->left->data);
+   }
+   
+   if(root->right != NULL)
+   {
+       printf("(R:%d)", root->right->data);
+   }
+    
+    PrintTree(root->left);
+    PrintTree(root->right);
+    
 }
