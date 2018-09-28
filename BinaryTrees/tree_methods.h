@@ -1,7 +1,6 @@
 #ifndef METHODS_FILE
 #define METHODS_FILE
 
-
 typedef struct node
 {
     int data;
@@ -13,6 +12,6 @@ typedef struct node
 
 tnode *CreateNode(int val);  
 tnode *CreateTree(tnode* root, int val);
-void *PrintTree(tnode* root);
+void PrintTree(tnode* root);
 
 #endif
