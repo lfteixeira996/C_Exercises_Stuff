@@ -10,8 +10,14 @@ typedef struct node
 }tnode;
 
 
-tnode *CreateNode(int val);  
-tnode *CreateTree(tnode* root, int val);
-void PrintTree(tnode* root);
+void print_option(tnode* root);
+tnode *free_option(tnode* root);
+
+
+tnode* CreateNode(int val);  
+tnode* insertNode(tnode* root, int val);
+void   PrintTree(tnode* root);
+tnode* deleteNode(tnode* root, int val);
+tnode* freeAlTree(tnode* root);
 
 #endif
