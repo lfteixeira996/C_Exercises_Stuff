@@ -11,7 +11,7 @@ void print_option(tnode* root)
     printf("\n");
 }
 
-//Free
+//Delete all Tree
 tnode *free_option(tnode* root)
 {
     root = freeAlTree(root);
@@ -19,6 +19,13 @@ tnode *free_option(tnode* root)
     return root;
 }
 
+//Delete a Node
+tnode *delete_node_option(tnode* root, int val)
+{
+    root = deleteNode(root, val);
+    printf("\nNode Deleted!\n"); 
+    return root;
+}
 
 
 /***************************************/
@@ -100,21 +107,9 @@ tnode *insertNode(tnode* root, int val)
 /*remove a node from the Tree*/
 tnode *deleteNode(tnode* root, int val)
 {   
-    /*
-        side = 0  - right node
-        side = 1  - left node
-        side = -1 - rep--
-    */
-    int side;
-    
-    tnode *next_node = root;
-    tnode *curr_node = root;
-    tnode *prev_node = root;
-    
     /*If Tree is Empty*/
     if(root == NULL)
     {
-        printf("Tree is Empty!");
         return root;
     }
     
@@ -137,8 +132,9 @@ tnode *deleteNode(tnode* root, int val)
         return root;
     }
     
-    
-    
+    deleteNode(root->left, val); 
+    deleteNode(root->right, val); 
+
     
     return root;
 }
@@ -147,7 +143,9 @@ tnode *deleteNode(tnode* root, int val)
 /*Free all nodes of the Tree*/
 tnode *freeAlTree(tnode* root)
 {
-    if (root == NULL)  return;
+    tnode *new_root = NULL;
+    
+    if (root == NULL)  return new_root;
     
     /* first delete both subtrees */
     freeAlTree(root->left); 
@@ -155,11 +153,13 @@ tnode *freeAlTree(tnode* root)
     
     /* then delete the node */
     printf("\nDeleting node: %d", root->data); 
-    free(root); 
-    root = NULL;
+    //free(root->data);
     
- 
-    return root;
+
+    free(root);
+    
+    new_root = NULL;
+    return new_root;
 }
 
 
