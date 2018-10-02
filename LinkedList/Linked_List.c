@@ -3,8 +3,6 @@
 #include "List_Methods.h"
 
 
-
-
 int main()
 {
     node_t *root = NULL;
@@ -18,7 +16,8 @@ int main()
         printf(" 1 - Push a value\n");
         printf(" 2 - Pop a value\n");
         printf(" 3 - Print List\n");
-        printf(" 4 - Clear Screen\n");
+        printf(" 4 - Search for node\n");
+        printf(" 5 - Clear Screen\n");
         printf(" 0 - Exit\n");
         
         printf("\nOption: ");
@@ -49,7 +48,15 @@ int main()
                 break;
             }
             
-            case 4:
+            case 4: 
+            {
+                printf("Value to search: ");
+                scanf("%d", &val);
+                search_node(root, val);
+                break;
+            }
+            
+            case 5:
             {
                 system("clear");
                 break;
