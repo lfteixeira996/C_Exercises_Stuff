@@ -80,3 +80,29 @@ void print_node(node_t *node_to_print)
         print_node(node_to_print->next);
     }
 }
+
+/*Search for node*/
+void search_node(node_t *root, int data)
+{
+    node_t *cursor = root;
+    
+    if(root == NULL)
+    {
+        printf("The List is Empty!\n");
+        return;
+    }
+    
+    while(cursor != NULL)
+    {
+        if(cursor->val == data)
+        {
+            printf("Node exist in the list!\n");
+            return;
+        }
+        cursor = cursor->next;
+    }
+    
+    printf("Node doesn't exist in the list!\n");
+    
+}
+
